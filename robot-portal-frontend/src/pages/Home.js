@@ -1,0 +1,16 @@
+import { Component } from "react";
+
+class Home extends Component {
+
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<p>Home stuff</p>
+		);
+	}
+}
+
+export default Home;
