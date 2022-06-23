@@ -10,4 +10,5 @@ public class SessionController {
 	public String sessionId() {
 		return "Session information....";
 	}
+
 }
