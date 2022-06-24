@@ -1,9 +1,12 @@
 import { Component } from "react";
+import LineChart from "../components/LineChart";
 
 class Dashboard extends Component {
 	render() {
 		return (
-			<p>Dashboard stuff</p>
+			<div class="dashboard bg-light">
+				<LineChart />
+			</div>
 		);
 	}
 }

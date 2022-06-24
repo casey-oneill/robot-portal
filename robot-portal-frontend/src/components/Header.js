@@ -20,7 +20,7 @@ class Header extends Component {
 	render() {
 		const { user } = this.state;
 		return (
-			<Navbar bg="light" variant="light" expand="lg">
+			<Navbar expand="lg">
 				<Container>
 					<Navbar.Brand as={Link} to="/">Robot Portal</Navbar.Brand>
 					<Nav>
