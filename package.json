@@ -4,5 +4,8 @@
     "chart.js": "^3.8.0",
     "react-bootstrap": "^2.4.0",
     "react-chartjs-2": "^4.2.0"
+  },
+  "devDependencies": {
+    "redux-devtools-extension": "^2.13.9"
   }
 }
