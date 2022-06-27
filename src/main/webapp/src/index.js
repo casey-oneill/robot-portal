@@ -10,6 +10,8 @@ import Layout from './pages/Layout';
 import Dashboard from './pages/Dashboard';
 import Login from './components/Login';
 import Home from './pages/Home';
+import Register from './components/Register';
+import Accounts from './pages/Accounts';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,7 +23,10 @@ root.render(
 					<Route path="portal" element={<Layout />}>
 						<Route path="dashboard" element={<Dashboard />} />
 					</Route>
-					<Route path="login" element={<Login />} />
+					<Route path="accounts" element={<Accounts />}>
+						<Route path="login" element={<Login />} />
+						<Route path="register" element={<Register />} />
+					</Route>
 				</Routes>
 			</BrowserRouter>
 		</Provider>

@@ -2,7 +2,7 @@ import axios from "axios";
 import { Component } from "react";
 import { Button, Card, Container, Form, Stack } from "react-bootstrap";
 import { connect } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { loginFailure, loginSuccess } from "../redux/reducers/authSlice";
 
 class Login extends Component {
@@ -47,7 +47,7 @@ class Login extends Component {
 
 		return (
 			<div className="login">
-				<Card>
+				<Card className="bg-light mb-3">
 					<Card.Body>
 						<Container>
 							<Card.Title>Login</Card.Title>
@@ -62,7 +62,14 @@ class Login extends Component {
 									</Form.Group>
 								</Stack>
 							</Form>
-							<Button variant="primary" onClick={this.handleSubmit}>Login</Button>
+							<Button variant="success" onClick={this.handleSubmit}>Sign in</Button>
+						</Container>
+					</Card.Body>
+				</Card>
+				<Card>
+					<Card.Body>
+						<Container>
+							<Card.Text>New to the site? <Link to="/accounts/register">Create an account</Link>.</Card.Text>
 						</Container>
 					</Card.Body>
 				</Card>
@@ -74,7 +81,7 @@ class Login extends Component {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.auth.isLoggedIn,
-	}
+	};
 }
 
 export default connect(mapStateToProps)(Login);
