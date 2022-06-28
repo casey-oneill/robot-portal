@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 class Home extends Component {
 	render() {
 		return (
-			<Navigate to="/login" />
+			<Navigate to="/accounts/login" />
 		);
 	}
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Component } from "react";
-import { Button, Card, Container, Form, Stack } from "react-bootstrap";
+import { Alert, Button, Card, Container, Form, Stack } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { loginFailure, loginSuccess } from "../redux/reducers/authSlice";
@@ -12,6 +12,8 @@ class Login extends Component {
 		this.state = {
 			username: "",
 			password: "",
+			isError: false,
+			error: "",
 		}
 	}
 
@@ -19,19 +21,30 @@ class Login extends Component {
 		const dispatch = this.props.dispatch;
 		const { username, password } = this.state;
 
-		axios
-			.post("/api/auth/login", { username, password })
-			.then((res) => {
-				return res.data;
-			})
-			.then(
-				(data) => {
-					dispatch(loginSuccess());
-				},
-				(error) => {
-					dispatch(loginFailure());
-				}
-			);
+		if (username === "" || password === "") {
+			this.setState({
+				isError: true,
+				error: "Username and password cannot be blank.",
+			});
+		} else {
+			axios
+				.post("/api/auth/login", { username, password })
+				.then((res) => {
+					return res.data;
+				})
+				.then(
+					(data) => {
+						dispatch(loginSuccess());
+					},
+					(error) => {
+						dispatch(loginFailure());
+						this.setState({
+							isError: true,
+							error: "Invalid username or password.",
+						});
+					}
+				);
+		}
 	}
 
 	handleChange = (event) => {
@@ -54,6 +67,7 @@ class Login extends Component {
 							<Card.Text>Sign into your account.</Card.Text>
 							<Form className="my-3">
 								<Stack gap={3}>
+									{this.state.isError ? <Alert variant="danger">{this.state.error}</Alert> : null}
 									<Form.Group>
 										<Form.Control required name="username" type="text" placeholder="Username" onChange={this.handleChange} />
 									</Form.Group>
