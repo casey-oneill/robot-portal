@@ -46,7 +46,7 @@ class Register extends Component {
 	}
 
 	render() {
-		if (this.props.submitSuccess) {
+		if (this.state.submitSuccess) {
 			return <Navigate to="/accounts/login" />
 		}
 
