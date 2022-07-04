@@ -21,13 +21,14 @@ class Header extends Component {
 	}
 
 	render() {
-		if (!this.state.isLoggedIn) {
-			return <Navigate to="/" />
-		}
+		// FIXME: Uncomment for final build
+		// if (!this.state.isLoggedIn) {
+		// 	return <Navigate to="/" />
+		// }
 
 		const username = this.props.user.username;
 		return (
-			<Navbar expand="lg">
+			<Navbar expand="lg border-bottom">
 				<Container>
 					<Navbar.Brand as={Link} to="/portal/dashboard">Robot Portal</Navbar.Brand>
 					<Nav>
