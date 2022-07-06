@@ -19,10 +19,8 @@ public class SecurityConfiguration {
 
 	@Autowired
 	private JWTUserDetailsService userDetailsService;
-
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-
 	@Autowired
 	private UserRepository userRepository;
 
@@ -44,7 +42,8 @@ public class SecurityConfiguration {
 				.antMatchers("/static/**").permitAll()
 				.antMatchers("/accounts/**").permitAll()
 				.antMatchers("/api/auth/**").permitAll()
-				.antMatchers("/favicon.ico", "/manifest.json", "/logo192.png", "/logo512.png", "/robots.txt").permitAll()
+				.antMatchers("/favicon.ico", "/manifest.json", "/logo192.png", "/logo512.png", "/robots.txt")
+				.permitAll()
 				.anyRequest().authenticated().and()
 				.addFilter(new JWTFilter(authenticationManager, userRepository))
 				.authenticationManager(authenticationManager)

@@ -1,4 +1,4 @@
-package com.coneill.hri.robotportal.models;
+package com.coneill.hri.robotportal.model;
 
 public class JWTResponse {
 
