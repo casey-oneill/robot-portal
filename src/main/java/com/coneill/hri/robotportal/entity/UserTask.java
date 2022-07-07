@@ -16,18 +16,22 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "sessions")
+@Table(name = "user_tasks")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class Session {
+public class UserTask {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private long userId;
+	private long taskId;
+	private boolean isComplete;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdTime;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date completedTime;
 
 }

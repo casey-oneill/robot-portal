@@ -1,7 +1,5 @@
 package com.coneill.hri.robotportal.controller;
 
-import java.sql.Date;
-import java.time.Instant;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -49,10 +47,6 @@ public class TaskController {
 		Optional<Task> oTask = taskRepository.findById(updatedTask.getId());
 
 		if (oTask.isPresent()) {
-			if (!oTask.get().isComplete() && updatedTask.isComplete()) {
-				updatedTask.setCompletedTime(Date.from(Instant.now()));
-			}
-
 			Task task = taskRepository.save(updatedTask);
 			return ResponseEntity.ok(task);
 		}
@@ -65,7 +59,6 @@ public class TaskController {
 		LOG.info("/tasks : createTask");
 
 		if (task != null) {
-			task.setCreatedTime(Date.from(Instant.now()));
 			return ResponseEntity.ok(taskRepository.save(task));
 		}
 
