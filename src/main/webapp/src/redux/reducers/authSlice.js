@@ -4,10 +4,11 @@ const authSlice = createSlice({
 	name: "auth",
 	initialState: {
 		isLoggedIn: false,
-		user: null,
+		jwt: null,
 	},
 	reducers: {
-		loginSuccess(state) {
+		loginSuccess(state, action) {
+			state.jwt = action.payload;
 			state.isLoggedIn = true;
 		},
 		loginFailure(state) {

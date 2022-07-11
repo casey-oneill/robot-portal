@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Component } from "react";
 import { Container, Navbar, Nav, Button } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -10,7 +11,37 @@ class Header extends Component {
 		super(props);
 		this.state = {
 			isLoggedIn: this.props.isLoggedIn,
+			user: null,
+			isLoading: true,
+			isError: false,
+			error: "",
 		}
+	}
+
+	componentDidMount() {
+		axios
+		.get("/api/users/info", {
+			headers: {
+				"Authorization": this.props.authorization,
+			}
+		})
+		.then((res) => {
+			return res.data;
+		})
+		.then(
+			(data) => {
+				this.setState({
+					user: data,
+					isLoading: false,
+				})
+			},
+			(error) => {
+				this.setState({
+					isError: true,
+					error: "Failed to retrieve user information.",
+				});
+			}
+		);
 	}
 
 	handleLogout = () => {
@@ -21,12 +52,16 @@ class Header extends Component {
 	}
 
 	render() {
-		// FIXME: Uncomment for final build
-		// if (!this.state.isLoggedIn) {
-		// 	return <Navigate to="/" />
-		// }
+		if (!this.state.isLoggedIn) {
+			return <Navigate to="/" />
+		}
 
-		const username = this.props.user.username;
+		if (this.state.isLoading) {
+			return (<p>Loading...</p>)
+		}
+
+		console.log(this.state)
+		const username = this.state.user.username;
 		return (
 			<Navbar expand="lg border-bottom">
 				<Container>
@@ -44,9 +79,7 @@ class Header extends Component {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.auth.isLoggedIn,
-		user: {
-			username: "Test User" // TODO: Add user data to store
-		},
+		authorization: "Bearer " + state.auth.jwt,
 	}
 }
 

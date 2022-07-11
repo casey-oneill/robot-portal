@@ -34,7 +34,7 @@ class Login extends Component {
 				})
 				.then(
 					(data) => {
-						dispatch(loginSuccess());
+						dispatch(loginSuccess(data.jwtToken));
 					},
 					(error) => {
 						dispatch(loginFailure());
@@ -60,7 +60,7 @@ class Login extends Component {
 
 		return (
 			<div className="login">
-				<Card className="bg-light mb-3">
+				<Card className="bg-light">
 					<Card.Body>
 						<Container>
 							<Card.Title>Login</Card.Title>
@@ -80,7 +80,7 @@ class Login extends Component {
 						</Container>
 					</Card.Body>
 				</Card>
-				<Card>
+				<Card className="my-3">
 					<Card.Body>
 						<Container>
 							<Card.Text>New to the site? <Link to="/accounts/register">Create an account</Link>.</Card.Text>
