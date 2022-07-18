@@ -93,4 +93,17 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 
+	@GetMapping("/tasks/{userTaskId}")
+	public ResponseEntity<UserTask> getUserTask(@PathVariable Long userTaskId) {
+		LOG.info("/users/tasks : getUserTasks : userTaskId = " + userTaskId);
+
+		Optional<UserTask> oUserTask = userTaskRepository.findById(userTaskId);
+
+		if (oUserTask.isPresent()) {
+			return ResponseEntity.ok(oUserTask.get());
+		}
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+
 }

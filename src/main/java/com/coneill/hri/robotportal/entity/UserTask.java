@@ -29,6 +29,7 @@ public class UserTask {
 	private long userId;
 	private long taskId;
 	private boolean isComplete;
+	private boolean isSkipped;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdTime;
 	@Temporal(TemporalType.TIMESTAMP)

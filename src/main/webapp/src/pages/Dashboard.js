@@ -2,12 +2,14 @@ import { Component } from "react";
 import { Button, Card, Col, Container, Row, Stack } from "react-bootstrap";
 import LineChart from "../components/LineChart";
 import RadarChart from "../components/RadarChart";
+import Task from "../components/Task";
 
 class Dashboard extends Component {
 	render() {
 		return (
 			<div className="dashboard bg-light">
 				<Container className="py-5">
+					<Task userTaskId={3} />
 					<Stack gap={5}>
 						<Row>
 							<Button variant="success">Scan Robot</Button>
