@@ -9,7 +9,6 @@ class Dashboard extends Component {
 		return (
 			<div className="dashboard bg-light">
 				<Container className="py-5">
-					<Task userTaskId={3} />
 					<Stack gap={5}>
 						<Row>
 							<Button variant="success">Scan Robot</Button>

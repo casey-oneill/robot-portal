@@ -73,17 +73,19 @@ public class UserController {
 	}
 
 	@PutMapping("/{userId}/tasks")
-	public ResponseEntity<UserTask> updateUserTask(@PathVariable Long userId, @RequestBody UserTask userTask) {
-		LOG.info("/users/tasks : updateUserTask : userId = " + userId);
+	public ResponseEntity<UserTask> updateUserTask(@PathVariable Long userId, @RequestBody UserTask updatedUserTask) {
+		LOG.info("/users/tasks : updateUserTask : userId = " + userId + " : taskId = " + updatedUserTask.getId());
 
 		Optional<User> oUser = userRepository.findById(userId);
 
 		if (oUser.isPresent()) {
-			Optional<UserTask> oUserTask = userTaskRepository.findById(userTask.getId());
+			Optional<UserTask> oUserTask = userTaskRepository.findById(updatedUserTask.getId());
 
 			if (oUserTask.isPresent()) {
-				userTask.setCreatedTime(oUserTask.get().getCreatedTime());
-				if (!oUserTask.get().isComplete() && userTask.isComplete()) {
+				UserTask userTask = oUserTask.get();
+				if (!userTask.isComplete() && updatedUserTask.isComplete()) {
+					userTask.setComplete(updatedUserTask.isComplete());
+					userTask.setSkipped(updatedUserTask.isSkipped());
 					userTask.setCompletedTime(Date.from(Instant.now()));
 				}
 				return ResponseEntity.ok(userTaskRepository.save(userTask));
