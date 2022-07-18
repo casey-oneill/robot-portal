@@ -51,7 +51,7 @@ class Layout extends Component {
 
 		return (
 			<div className="layout">
-				<Container fluid>
+				<Container fluid className="px-0">
 					<Header />
 					<Outlet />
 				</Container>
