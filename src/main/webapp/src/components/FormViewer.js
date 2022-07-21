@@ -3,25 +3,24 @@ import { Card } from "react-bootstrap";
 
 class FormViewer extends Component {
 
-	constructor(props) {
-		super(props);
-		this.props = {
-			url: this.props.url,
-		};
-	}
-
 	render() {
-		const { props } = this.state;
+		var { url, prefills } = this.props;
+		if (prefills !== undefined && prefills !== null) {
+			Object.entries(prefills).forEach(([key, value]) => {
+				url += "&" + key + "=" + value;
+			});
+		}
+
 		return (
 			<div className="form-viewer text-center">
 				<Card>
 					<Card.Body>
-                    	<Card.Title>Please complete the following form.</Card.Title>
+						<Card.Title>Please complete the following form.</Card.Title>
 						<Card.Text>
-							<iframe src={props} width="640" height="554" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+							<iframe src={url} title="formFrame" width="700" height="600">Loading…</iframe>
 						</Card.Text>
 					</Card.Body>
-                </Card>
+				</Card>
 			</div>
 		);
 	}

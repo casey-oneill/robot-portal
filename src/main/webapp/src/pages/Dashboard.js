@@ -2,7 +2,6 @@ import { Component } from "react";
 import { Button, Card, Col, Container, Row, Stack } from "react-bootstrap";
 import LineChart from "../components/LineChart";
 import RadarChart from "../components/RadarChart";
-import Task from "../components/Task";
 
 class Dashboard extends Component {
 	render() {

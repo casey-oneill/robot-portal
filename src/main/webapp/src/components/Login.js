@@ -29,21 +29,15 @@ class Login extends Component {
 		} else {
 			axios
 				.post("/api/auth/login", { username, password })
-				.then((res) => {
-					return res.data;
-				})
-				.then(
-					(data) => {
-						dispatch(loginSuccess(data.jwtToken));
-					},
-					(error) => {
-						dispatch(loginFailure());
-						this.setState({
-							isError: true,
-							error: "Invalid username or password.",
-						});
-					}
-				);
+				.then((result) => {
+					dispatch(loginSuccess(result.data.jwtToken));
+				}, (error) => {
+					dispatch(loginFailure());
+					this.setState({
+						isError: true,
+						error: "Invalid username or password.",
+					});
+				});
 		}
 	}
 

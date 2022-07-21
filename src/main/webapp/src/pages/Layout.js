@@ -13,35 +13,33 @@ class Layout extends Component {
 		super(props);
 		this.state = {
 			isLoading: true,
+			isError: false,
 		}
 	}
 
 	componentDidMount() {
-		if (this.props.user === null)
+		if (this.props.isLoggedIn && this.props.user === null)
 			axios
 				.get("/api/users/info", {
 					headers: {
 						"Authorization": this.props.authorization,
 					}
 				})
-				.then((res) => {
-					return res.data;
-				})
-				.then(
-					(data) => {
-						this.props.dispatch(updateUser(data))
-						this.setState({
-							isLoading: false,
-						})
-					},
-					(error) => {
-						// TODO: Handle error
-					}
-				);
+				.then((response) => {
+					this.props.dispatch(updateUser(response.data))
+					this.setState({
+						isLoading: false,
+					})
+				}, (error) => {
+					this.setState({
+						isLoading: false,
+						isError: true,
+					});
+				});
 	}
 
 	render() {
-		if (!this.props.isLoggedIn) {
+		if (!this.props.isLoggedIn || this.state.isError) {
 			return <Navigate to="/" />
 		}
 

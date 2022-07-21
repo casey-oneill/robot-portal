@@ -45,8 +45,10 @@ class LineChart extends Component {
 		if (scheme.length <= 0) {
 			const colourSeed = faker.color.rgb({ format: "css" });
 			axios.get("https://www.thecolorapi.com/scheme?rgb=" + colourSeed + "&mode=analogic&count=" + n + "&format=json")
-				.then((res) => {
-					this.setState({ scheme: res.data.colors });
+				.then((result) => {
+					this.setState({ scheme: result.data.colors });
+				}, (error) => {
+					// TODO: Handle error
 				});
 		} else {
 			var labels = [];

@@ -21,22 +21,16 @@ class Register extends Component {
 		const { username, password } = this.state;
 		axios
 			.post("/api/auth/register", { username, password })
-			.then((res) => {
-				return res.data;
-			})
-			.then(
-				(data) => {
-					this.setState({
-						submitSuccess: true,
-					})
-				},
-				(error) => {
-					this.setState({
-						isError: true,
-						error: error.message,
-					})
-				}
-			);
+			.then((result) => {
+				this.setState({
+					submitSuccess: true,
+				});
+			}, (error) => {
+				this.setState({
+					isError: true,
+					error: error.message,
+				});
+			});
 	}
 
 	handleChange = (event) => {

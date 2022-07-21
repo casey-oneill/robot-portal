@@ -23,19 +23,13 @@ class Task extends Component {
 					"Authorization": this.props.authorization,
 				}
 			})
-			.then((res) => {
-				return res.data;
-			})
-			.then(
-				(data) => {
-					this.setState({
-						userTask: data,
-					});
-				},
-				(error) => {
-					// TODO: Handle error
-				}
-			);
+			.then((result) => {
+				this.setState({
+					userTask: result.data,
+				});
+			}, (error) => {
+				// TODO: Handle error
+			});
 	}
 
 	componentDidUpdate = () => {
@@ -46,20 +40,14 @@ class Task extends Component {
 						"Authorization": this.props.authorization,
 					}
 				})
-				.then((res) => {
-					return res.data;
-				})
-				.then(
-					(data) => {
-						this.setState({
-							task: data,
-							isLoading: false,
-						})
-					},
-					(error) => {
-						// TODO: Handle error
-					}
-				);
+				.then((result) => {
+					this.setState({
+						task: result.data,
+						isLoading: false,
+					})
+				}, (error) => {
+					// TODO: Handle error
+				});
 		}
 	}
 
@@ -80,21 +68,14 @@ class Task extends Component {
 					"Authorization": this.props.authorization,
 				}
 			})
-			.then((res) => {
-				return res.data;
-			})
-			.then(
-				(data) => {
-					console.log(data)
-					this.setState({
-						userTask: data,
-						isLoading: false,
-					});
-				},
-				(error) => {
-					// TODO: Handle error
-				}
-			);
+			.then((result) => {
+				this.setState({
+					userTask: result.data,
+					isLoading: false,
+				});
+			}, (error) => {
+				// TODO: Handle error
+			});
 	}
 
 	handleSkip = () => {
