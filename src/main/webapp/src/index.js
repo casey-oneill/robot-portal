@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import './index.css';
 import store from "./redux/store";
 import { Provider } from "react-redux";
@@ -12,8 +12,19 @@ import Login from './components/Login';
 import Home from './pages/Home';
 import Register from './components/Register';
 import Accounts from './pages/Accounts';
+import TaskPage from './pages/TaskPage';
+import TaskLoader from './components/TaskLoader';
+import MaintenanceSurvey from './components/MaintenanceSurvey';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const TaskPageWrapper = (props) => {
+	const params = useParams();
+	return (
+		<TaskPage {...{ ...props, match: { params } }} />
+	);
+}
+
 root.render(
 	<React.StrictMode>
 		<Provider store={store}>
@@ -22,6 +33,11 @@ root.render(
 					<Route index element={<Home />} />
 					<Route path="portal" element={<Layout />}>
 						<Route path="dashboard" element={<Dashboard />} />
+						<Route path="diagnosis-scan" element={<TaskLoader />} />
+						<Route path="diagnosis-survey" element={<MaintenanceSurvey />} />
+						<Route path="diagnosis">
+							<Route path=":id" element={<TaskPageWrapper />} />
+						</Route>
 					</Route>
 					<Route path="accounts" element={<Accounts />}>
 						<Route path="login" element={<Login />} />

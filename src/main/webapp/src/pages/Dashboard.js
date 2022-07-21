@@ -2,6 +2,8 @@ import { Component } from "react";
 import { Button, Card, Col, Container, Row, Stack } from "react-bootstrap";
 import LineChart from "../components/LineChart";
 import RadarChart from "../components/RadarChart";
+import { VscSync } from "react-icons/vsc";
+import { Link } from "react-router-dom";
 
 class Dashboard extends Component {
 	render() {
@@ -10,7 +12,7 @@ class Dashboard extends Component {
 				<Container className="py-5">
 					<Stack gap={5}>
 						<Row>
-							<Button variant="success">Scan Robot</Button>
+							<Button as={Link} variant="success" className="py-3" to="/portal/diagnosis-scan"><VscSync size={24} /> Robot Scan</Button>
 						</Row>
 						<Row>
 							<Col>
