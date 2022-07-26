@@ -40,7 +40,7 @@ class TaskLoader extends Component {
 					<p>Scan complete. Detected 1 issue.</p>
 
 					{/* FIXME: Connect to task API */}
-					<Button as={Link} variant="primary" to="/portal/diagnosis/8">Continue</Button>
+					<Button as={Link} variant="primary" to="/portal/diagnosis/3">Continue</Button>
 				</Container>
 			</div>
 		);

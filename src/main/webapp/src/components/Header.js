@@ -17,6 +17,7 @@ class Header extends Component {
 				<Container>
 					<Navbar.Brand as={Link} to="/portal/dashboard">Robot Portal</Navbar.Brand>
 					<Nav>
+						<Nav.Link as={Link} to="/portal/forms">Forms</Nav.Link>
 						<Navbar.Text className="mx-3">Welcome, {username}</Navbar.Text>
 						<Button onClick={this.handleLogout}>Logout</Button>
 					</Nav>

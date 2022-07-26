@@ -15,6 +15,7 @@ import Accounts from './pages/Accounts';
 import TaskPage from './pages/TaskPage';
 import TaskLoader from './components/TaskLoader';
 import MaintenanceSurvey from './components/MaintenanceSurvey';
+import FormPage from './pages/FormPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -38,6 +39,7 @@ root.render(
 						<Route path="diagnosis">
 							<Route path=":id" element={<TaskPageWrapper />} />
 						</Route>
+						<Route path="forms" element={<FormPage />} />
 					</Route>
 					<Route path="accounts" element={<Accounts />}>
 						<Route path="login" element={<Login />} />
