@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.coneill.hri.robotportal.entity.User;
+import com.coneill.hri.robotportal.entity.UserForm;
 import com.coneill.hri.robotportal.entity.UserTask;
+import com.coneill.hri.robotportal.repository.UserFormRepository;
 import com.coneill.hri.robotportal.repository.UserRepository;
 import com.coneill.hri.robotportal.repository.UserTaskRepository;
 
@@ -34,6 +36,8 @@ public class UserController {
 	private UserRepository userRepository;
 	@Autowired
 	private UserTaskRepository userTaskRepository;
+	@Autowired
+	private UserFormRepository userFormRepository;
 
 	@GetMapping(value = "/info")
 	public ResponseEntity<User> getUserDetails() {
@@ -43,9 +47,41 @@ public class UserController {
 		return ResponseEntity.ok(userRepository.findByUsername(username).get());
 	}
 
+	@GetMapping("/{userId}/forms")
+	public ResponseEntity<List<UserForm>> getUserForms(@PathVariable Long userId) {
+		LOG.info("/users/{userId}/forms : getUserForms : userId = " + userId);
+
+		Optional<User> oUser = userRepository.findById(userId);
+
+		if (oUser.isPresent()) {
+			List<UserForm> forms = userFormRepository.findByUserId(userId);
+			return ResponseEntity.ok(forms);
+		}
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+
+	@PostMapping("/{userId}/forms")
+	public ResponseEntity<UserForm> createUserForm(@PathVariable Long userId, @RequestBody UserForm userForm) {
+		LOG.info("/users/{userId}/tasks : createUserForm : userId = " + userId);
+
+		Optional<User> oUser = userRepository.findById(userId);
+
+		if (oUser.isPresent()) {
+			List<UserForm> forms = userFormRepository.findByFormId(userForm.getFormId());
+			if (forms.size() == 0) {
+				return ResponseEntity.ok(userFormRepository.save(userForm));
+			} else {
+				return ResponseEntity.status(HttpStatus.CONFLICT).build();
+			}
+		}
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+
 	@GetMapping("/{userId}/tasks")
 	public ResponseEntity<List<UserTask>> getUserTasks(@PathVariable Long userId) {
-		LOG.info("/users/tasks : getUserTasks : userId = " + userId);
+		LOG.info("/users/{userId}/tasks : getUserTasks : userId = " + userId);
 
 		Optional<User> oUser = userRepository.findById(userId);
 
@@ -59,7 +95,7 @@ public class UserController {
 
 	@PostMapping("/{userId}/tasks")
 	public ResponseEntity<UserTask> createUserTask(@PathVariable Long userId, @RequestBody UserTask userTask) {
-		LOG.info("/users/tasks : createUserTask : userId = " + userId);
+		LOG.info("/users/{userId}/tasks : createUserTask : userId = " + userId);
 
 		Optional<User> oUser = userRepository.findById(userId);
 
@@ -74,7 +110,8 @@ public class UserController {
 
 	@PutMapping("/{userId}/tasks")
 	public ResponseEntity<UserTask> updateUserTask(@PathVariable Long userId, @RequestBody UserTask updatedUserTask) {
-		LOG.info("/users/tasks : updateUserTask : userId = " + userId + " : taskId = " + updatedUserTask.getId());
+		LOG.info("/users/{userId}/tasks : updateUserTask : userId = " + userId + " : taskId = "
+				+ updatedUserTask.getId());
 
 		Optional<User> oUser = userRepository.findById(userId);
 
@@ -97,7 +134,7 @@ public class UserController {
 
 	@GetMapping("/tasks/{userTaskId}")
 	public ResponseEntity<UserTask> getUserTask(@PathVariable Long userTaskId) {
-		LOG.info("/users/tasks : getUserTasks : userTaskId = " + userTaskId);
+		LOG.info("/users/tasks/{userTaskId} : getUserTasks : userTaskId = " + userTaskId);
 
 		Optional<UserTask> oUserTask = userTaskRepository.findById(userTaskId);
 
