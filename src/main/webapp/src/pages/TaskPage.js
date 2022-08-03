@@ -19,7 +19,6 @@ class TaskPage extends Component {
 	}
 
 	componentDidMount = () => {
-		// Get userTask information
 		axios
 			.get("/api/users/tasks/" + this.props.match.params.id, {
 				headers: {
@@ -110,7 +109,7 @@ class TaskPage extends Component {
 						<Card className="my-3 bg-light">
 							<Card.Body>
 								<Container>
-									<Button as={Link} variant="primary" to="/portal/diagnosis-survey">Continue</Button>{' '}
+									<Button as={Link} variant="primary" to="/portal/forms/maintenance">Continue</Button>{' '}
 								</Container>
 							</Card.Body>
 						</Card>

@@ -25,6 +25,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	private long pid;
 	@Column(unique = true)
 	private String username;
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

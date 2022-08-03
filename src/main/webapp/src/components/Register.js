@@ -9,6 +9,7 @@ class Register extends Component {
 		super(props);
 		this.state = {
 			username: "",
+			pid: "",
 			password: "",
 			confirmPassword: "",
 			submitSuccess: false,
@@ -18,9 +19,9 @@ class Register extends Component {
 	}
 
 	handleSubmit = (event) => {
-		const { username, password } = this.state;
+		const { username, pid, password } = this.state;
 		axios
-			.post("/api/auth/register", { username, password })
+			.post("/api/auth/register", { username, pid, password })
 			.then((result) => {
 				this.setState({
 					submitSuccess: true,
@@ -41,7 +42,18 @@ class Register extends Component {
 
 	render() {
 		if (this.state.submitSuccess) {
-			return <Navigate to="/accounts/login" />
+			return (
+				<div className="register">
+					<Card className="bg-light mb-3">
+						<Card.Body>
+							<Container>
+								<Card.Title className="text-success">Registration successful!</Card.Title>
+								<Card.Text>Your account is ready to go! <Link to="/accounts/login">Sign in</Link>.</Card.Text>
+							</Container>
+						</Card.Body>
+					</Card>
+				</div>
+			)
 		}
 
 		var isValidPassword = true;
@@ -50,7 +62,7 @@ class Register extends Component {
 		}
 
 		var isFormValid = true;
-		if (this.state.username === "" || this.state.password === "" || !isValidPassword) {
+		if (this.state.username === "" || this.state.pid === "" || this.state.password === "" || !isValidPassword) {
 			isFormValid = false;
 		}
 
@@ -66,12 +78,22 @@ class Register extends Component {
 									{this.state.isError ? <Alert variant="danger">{this.state.error}</Alert> : null}
 									{isValidPassword ? null : <Alert variant="danger">Passwords don't match.</Alert>}
 									<Form.Group>
-										<Form.Control required name="username" type="text" placeholder="Username" onChange={this.handleChange} />
+										<Form.Label>Username</Form.Label>
+										<Form.Control required name="username" type="text" placeholder="Enter username" onChange={this.handleChange} />
 									</Form.Group>
 									<Form.Group>
+										<Form.Label>Participant ID</Form.Label>
+										<Form.Control required name="pid" type="text" placeholder="Enter participant ID" onChange={this.handleChange} />
+										<Form.Text className="text-muted">
+											4-digit code provided by researchers.
+										</Form.Text>
+									</Form.Group>
+									<Form.Group>
+										<Form.Label>Password</Form.Label>
 										<Form.Control required name="password" type="password" placeholder="Password" autoComplete="on" onChange={this.handleChange} />
 									</Form.Group>
 									<Form.Group>
+										<Form.Label>Confirm Password</Form.Label>
 										<Form.Control required name="confirmPassword" type="password" placeholder="Confirm password" autoComplete="on" onChange={this.handleChange} />
 									</Form.Group>
 								</Stack>

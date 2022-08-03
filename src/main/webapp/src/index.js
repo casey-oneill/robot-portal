@@ -14,8 +14,7 @@ import Register from './components/Register';
 import Accounts from './pages/Accounts';
 import TaskPage from './pages/TaskPage';
 import TaskLoader from './components/TaskLoader';
-import MaintenanceSurvey from './components/MaintenanceSurvey';
-import FormPage from './pages/FormPage';
+import MaintenanceForm from './components/forms/MaintenanceForm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -35,11 +34,12 @@ root.render(
 					<Route path="portal" element={<Layout />}>
 						<Route path="dashboard" element={<Dashboard />} />
 						<Route path="diagnosis-scan" element={<TaskLoader />} />
-						<Route path="diagnosis-survey" element={<MaintenanceSurvey />} />
 						<Route path="diagnosis">
 							<Route path=":id" element={<TaskPageWrapper />} />
 						</Route>
-						<Route path="forms" element={<FormPage />} />
+						<Route path="forms">
+							<Route path="maintenance" element={<MaintenanceForm />} />
+						</Route>
 					</Route>
 					<Route path="accounts" element={<Accounts />}>
 						<Route path="login" element={<Login />} />

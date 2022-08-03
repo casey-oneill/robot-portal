@@ -11,6 +11,7 @@ class Dashboard extends Component {
 			<div className="dashboard bg-light">
 				<Container className="py-5">
 					<Stack gap={5}>
+						<Row><p className="text-muted my-0">Forgot to complete a post-maintenance survey? Find it <Link to="/portal/forms/maintenance">here</Link>.</p></Row>
 						<Row>
 							<Button as={Link} variant="success" className="py-3" to="/portal/diagnosis-scan"><VscSync size={24} /> Robot Scan</Button>
 						</Row>
