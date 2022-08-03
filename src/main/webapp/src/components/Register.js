@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Component } from "react";
 import { Alert, Button, Card, Container, Form, Stack } from "react-bootstrap";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Register extends Component {
 
