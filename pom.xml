@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.coneill.hri</groupId>
 	<artifactId>robot-portal</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-beta</version>
 	<name>robot-portal</name>
 	<description>Custom webapp for research project.</description>
 	<properties>
@@ -55,11 +55,11 @@
 			<version>4.0.0</version>
 		</dependency>
 
-		<!-- <dependency>
+		<dependency>
 			<groupId>com.github.eirslett</groupId>
 			<artifactId>frontend-maven-plugin</artifactId>
 			<version>1.12.1</version>
-		</dependency> -->
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -69,7 +69,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<!-- <plugin>
+			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>1.6</version>
@@ -125,7 +125,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin> -->
+			</plugin>
 		</plugins>
 	</build>
 
