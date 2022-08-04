@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,7 +25,8 @@ import lombok.ToString;
 public class UserTask {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "user_tasks_seq", sequenceName = "user_tasks_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_tasks_seq")
 	private long id;
 	private long userId;
 	private long taskId;

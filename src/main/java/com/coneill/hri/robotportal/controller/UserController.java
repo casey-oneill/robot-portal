@@ -20,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.coneill.hri.robotportal.entity.User;
-import com.coneill.hri.robotportal.entity.UserForm;
 import com.coneill.hri.robotportal.entity.UserTask;
-import com.coneill.hri.robotportal.repository.UserFormRepository;
 import com.coneill.hri.robotportal.repository.UserRepository;
 import com.coneill.hri.robotportal.repository.UserTaskRepository;
 
@@ -36,8 +34,6 @@ public class UserController {
 	private UserRepository userRepository;
 	@Autowired
 	private UserTaskRepository userTaskRepository;
-	@Autowired
-	private UserFormRepository userFormRepository;
 
 	@GetMapping(value = "/info")
 	public ResponseEntity<User> getUserDetails() {
@@ -45,38 +41,6 @@ public class UserController {
 
 		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return ResponseEntity.ok(userRepository.findByUsername(username).get());
-	}
-
-	@GetMapping("/{userId}/forms")
-	public ResponseEntity<List<UserForm>> getUserForms(@PathVariable Long userId) {
-		LOG.info("/users/{userId}/forms : getUserForms : userId = " + userId);
-
-		Optional<User> oUser = userRepository.findById(userId);
-
-		if (oUser.isPresent()) {
-			List<UserForm> forms = userFormRepository.findByUserId(userId);
-			return ResponseEntity.ok(forms);
-		}
-
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-	}
-
-	@PostMapping("/{userId}/forms")
-	public ResponseEntity<UserForm> createUserForm(@PathVariable Long userId, @RequestBody UserForm userForm) {
-		LOG.info("/users/{userId}/tasks : createUserForm : userId = " + userId);
-
-		Optional<User> oUser = userRepository.findById(userId);
-
-		if (oUser.isPresent()) {
-			List<UserForm> forms = userFormRepository.findByFormId(userForm.getFormId());
-			if (forms.size() == 0) {
-				return ResponseEntity.ok(userFormRepository.save(userForm));
-			} else {
-				return ResponseEntity.status(HttpStatus.CONFLICT).build();
-			}
-		}
-
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 
 	@GetMapping("/{userId}/tasks")

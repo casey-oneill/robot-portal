@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,7 +24,8 @@ import lombok.ToString;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "users_seq", sequenceName = "users_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
 	private long id;
 	private long pid;
 	@Column(unique = true)
