@@ -65,8 +65,6 @@ class TaskLoader extends Component {
 			);
 		}
 
-		console.log(this.state)
-
 		if (userTask === null) {
 			return (
 				<div className="diagnosis-loader">
