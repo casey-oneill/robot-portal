@@ -13,10 +13,10 @@ A web application created for an HRI research project.
     ```sh
     java -jar robot-portal-1.0.0-beta.jar
     ```
-6. (Optional) Load initial data:
-```sh
-psql -U robot -d robot_portal -f ./data/data.sql -a
-```
+6. (Optional) Download [data script](https://github.com/casey-oneill/robot-portal/blob/main/data/data.sql) and load initial data:
+    ```sh
+    psql -U robot -d robot_portal -f data.sql
+    ```
 
 The application will be running at http://localhost:8080/.
 
@@ -37,7 +37,7 @@ The application will be running at http://localhost:8080/.
     ```
 7. (Optional) Load initial data:
 ```sh
-psql -U robot -d robot_portal -f ./data/data.sql -a
+psql -U robot -d robot_portal -f ./data/data.sql
 ```
 
 The backend application will be running at http://localhost:8080/.
