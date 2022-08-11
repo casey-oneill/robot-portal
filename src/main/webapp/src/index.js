@@ -43,7 +43,7 @@ root.render(
 					</Route>
 					<Route path="accounts" element={<Accounts />}>
 						<Route path="login" element={<Login />} />
-						<Route path="register" element={<Register />} />
+						{/* <Route path="register" element={<Register />} /> */}
 					</Route>
 				</Routes>
 			</BrowserRouter>

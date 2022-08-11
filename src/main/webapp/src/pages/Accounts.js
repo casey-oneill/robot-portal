@@ -6,7 +6,7 @@ class Accounts extends Component {
 	render() {
 		return (
 			<div className="accounts">
-				<h1 className="text-center display-3 my-5">Robot Maintenance Portal</h1>
+				<h1 className="text-center display-3 my-5">Robot Portal</h1>
 				<Container>
 					<Outlet />
 				</Container>

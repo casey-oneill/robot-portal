@@ -77,10 +77,17 @@ class Login extends Component {
 				<Card className="my-3">
 					<Card.Body>
 						<Container>
-							<Card.Text>New to the site? <Link to="/accounts/register">Create an account</Link>.</Card.Text>
+							<Card.Text>Having trouble signing in? <a href="mailto:casey.oneill@unb.ca">Contact an administrator</a>.</Card.Text>
 						</Container>
 					</Card.Body>
 				</Card>
+				{/* <Card className="my-3">
+					<Card.Body>
+						<Container>
+							<Card.Text>New to the site? <Link to="/accounts/register">Create an account</Link>.</Card.Text>
+						</Container>
+					</Card.Body>
+				</Card> */}
 			</div>
 		);
 	}
