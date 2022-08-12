@@ -1,11 +1,9 @@
 import axios from "axios";
 import { Component } from "react";
 import { Container } from "react-bootstrap";
-import { connect } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import Loader from "../components/Loader";
-import { updateUser } from "../redux/reducers/authSlice";
 
 class Layout extends Component {
 
@@ -13,38 +11,35 @@ class Layout extends Component {
 		super(props);
 		this.state = {
 			isLoading: true,
-			isError: false,
+			isLogin: false,
 		}
 	}
 
 	componentDidMount() {
-		if (this.props.isLoggedIn && this.props.user === null)
-			axios
-				.get("/api/users/info", {
-					headers: {
-						"Authorization": this.props.authorization,
-					}
+		const token = localStorage.getItem("token");
+		axios.get("/api/users/info", { headers: { "Authorization": "Bearer " + token, } })
+			.then((response) => {
+				this.setState({
+					isLoading: false,
+					isLogin: true,
 				})
-				.then((response) => {
-					this.props.dispatch(updateUser(response.data))
-					this.setState({
-						isLoading: false,
-					})
-				}, (error) => {
-					this.setState({
-						isLoading: false,
-						isError: true,
-					});
+			}, (error) => {
+				this.setState({
+					isLoading: false,
+					isLogin: false,
 				});
+			});
 	}
 
 	render() {
-		if (!this.props.isLoggedIn || this.state.isError) {
-			return <Navigate to="/" />
+		const { isLoading, isLogin } = this.state;
+
+		if (isLoading) {
+			return <Loader />
 		}
 
-		if (this.state.isLoading) {
-			return <Loader />
+		if (!isLogin) {
+			return <Navigate to="/" />
 		}
 
 		return (
@@ -58,12 +53,4 @@ class Layout extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		isLoggedIn: state.auth.isLoggedIn,
-		authorization: "Bearer " + state.auth.jwt,
-		user: state.auth.user,
-	}
-}
-
-export default connect(mapStateToProps)(Layout);
+export default Layout;

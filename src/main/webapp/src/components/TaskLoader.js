@@ -2,7 +2,6 @@ import axios from "axios";
 import { faker } from "@faker-js/faker";
 import { Component } from "react";
 import { Button, Container } from "react-bootstrap";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Loader from "./Loader";
 
@@ -12,51 +11,46 @@ class TaskLoader extends Component {
 		super(props);
 		this.state = {
 			isLoading: true,
-			userTask: null,
+			userTasks: [],
 			render: false,
 		};
 	}
 
 	componentDidMount() {
-		axios
-			.get("/api/users/" + this.props.user.id + "/tasks", {
-				headers: {
-					"Authorization": this.props.authorization,
-				}
-			})
-			.then((result) => {
-				var filteredData = result.data.filter((ut) => {
-					if (ut.complete === true) {
-						return false;
-					}
-					return true;
-				});
-
-				if (filteredData.length !== 0) {
-					this.setState({
-						isLoading: false,
-						userTask: filteredData[0], // User will only ever have one active task at a time
-					});
-				} else {
-					this.setState({
-						isLoading: false,
-					})
-				}
-			}, (error) => {
-				// TODO: Handle error
-			});
+		this.fetchUserTask();
 
 		setTimeout(() => {
 			this.setState({ render: true });
-		}, faker.datatype.number({ min: 3000, max: 5000 }));
+		}, faker.datatype.number({ min: 2000, max: 3000 }));
+	}
+
+	fetchUser = async () => {
+		const token = localStorage.getItem("token");
+		const { data } = await axios.get("/api/users/info", { headers: { "Authorization": "Bearer " + token, } });
+		return data;
+	}
+
+	fetchUserTask = async () => {
+		const token = localStorage.getItem("token");
+		const user = await this.fetchUser();
+		const { data } = await axios.get("/api/users/" + user.id + "/tasks", { headers: { "Authorization": "Bearer " + token, } });
+
+		var filteredData = data.filter((ut) => {
+			return !ut.complete;
+		});
+
+		this.setState({
+			isLoading: false,
+			userTasks: filteredData,
+		});
 	}
 
 	render() {
-		const { isLoading, userTask, render } = this.state;
+		const { isLoading, userTasks, render } = this.state;
 
 		if (isLoading || !render) {
 			return (
-				<div className="diagnosis-loader">
+				<div className="tasks-loader">
 					<Container className="my-5">
 						<p>Scanning robot...</p>
 						<Loader />
@@ -65,11 +59,11 @@ class TaskLoader extends Component {
 			);
 		}
 
-		if (userTask === null) {
+		if (userTasks.length === 0) {
 			return (
-				<div className="diagnosis-loader">
+				<div className="tasks-loader">
 					<Container className="my-5">
-						<p>Scan complete. Detected 0 issues.</p>
+						<p>Scan complete. No tasks found.</p>
 						<Button as={Link} variant="primary" to="/portal/dashboard">Continue</Button>
 					</Container>
 				</div >
@@ -77,21 +71,14 @@ class TaskLoader extends Component {
 		}
 
 		return (
-			<div className="diagnosis-loader">
+			<div className="tasks-loader">
 				<Container className="my-5">
-					<p>Scan complete. Detected 1 issue.</p>
-					<Button as={Link} variant="primary" to={`/portal/diagnosis/${userTask.id}`}>Continue</Button>
+					<p>Scan complete. Detected a task.</p>
+					<Button as={Link} variant="primary" to={`/portal/tasks/${userTasks[0].id}`}>Continue</Button>
 				</Container>
 			</div >
 		);
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		authorization: "Bearer " + state.auth.jwt,
-		user: state.auth.user,
-	}
-}
-
-export default connect(mapStateToProps)(TaskLoader);
+export default TaskLoader;

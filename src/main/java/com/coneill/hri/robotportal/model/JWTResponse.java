@@ -2,14 +2,14 @@ package com.coneill.hri.robotportal.model;
 
 public class JWTResponse {
 
-	private String jwtToken;
+	private String token;
 
-	public JWTResponse(String jwtToken) {
-		this.jwtToken = jwtToken;
+	public JWTResponse(String token) {
+		this.token = token;
 	}
 
-	public String getJwtToken() {
-		return jwtToken;
+	public String getToken() {
+		return token;
 	}
 
 }

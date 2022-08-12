@@ -25,6 +25,9 @@ class FormViewer extends Component {
 							<iframe src={url} title="formFrame" width="700" height="600">Loading…</iframe>
 						</Card.Text>
 					</Card.Body>
+					<Card.Footer>
+						Accidentally changed the <i>"Participant ID"</i> field? Your ID can be found under the <i>"Logged in as"</i> menu item.
+					</Card.Footer>
 				</Card>
 			</div>
 		);

@@ -1,9 +1,7 @@
 import axios from "axios";
 import { Component } from "react";
 import { Alert, Button, Card, Container, Form, Stack } from "react-bootstrap";
-import { connect } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
-import { loginFailure, loginSuccess } from "../redux/reducers/authSlice";
+import { Navigate } from "react-router-dom";
 
 class Login extends Component {
 
@@ -12,13 +10,13 @@ class Login extends Component {
 		this.state = {
 			username: "",
 			password: "",
+			isLogin: false,
 			isError: false,
 			error: "",
 		}
 	}
 
 	handleSubmit = (event) => {
-		const dispatch = this.props.dispatch;
 		const { username, password } = this.state;
 
 		if (username === "" || password === "") {
@@ -30,9 +28,11 @@ class Login extends Component {
 			axios
 				.post("/api/auth/login", { username, password })
 				.then((result) => {
-					dispatch(loginSuccess(result.data.jwtToken));
+					localStorage.setItem("token", result.data.token);
+					this.setState({
+						isLogin: true,
+					});
 				}, (error) => {
-					dispatch(loginFailure());
 					this.setState({
 						isError: true,
 						error: "Invalid username or password.",
@@ -48,7 +48,7 @@ class Login extends Component {
 	}
 
 	render() {
-		if (this.props.isLoggedIn) {
+		if (this.state.isLogin) {
 			return <Navigate to="/portal/dashboard" />
 		}
 
@@ -93,10 +93,4 @@ class Login extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		isLoggedIn: state.auth.isLoggedIn,
-	};
-}
-
-export default connect(mapStateToProps)(Login);
+export default Login;

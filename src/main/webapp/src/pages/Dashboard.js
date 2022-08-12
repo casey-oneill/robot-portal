@@ -13,7 +13,7 @@ class Dashboard extends Component {
 					<Stack gap={5}>
 						<Row><p className="text-muted my-0">Forgot to complete a post-maintenance survey? Find it <Link to="/portal/forms/maintenance">here</Link>.</p></Row>
 						<Row>
-							<Button as={Link} variant="success" className="py-3" to="/portal/diagnosis-scan"><VscSync size={24} /> Robot Scan</Button>
+							<Button as={Link} variant="success" className="py-3" to="/portal/tasks"><VscSync size={24} /> Scan for Robot Task</Button>
 						</Row>
 						<Row>
 							<Col>

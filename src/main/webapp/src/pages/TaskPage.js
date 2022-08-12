@@ -2,7 +2,6 @@ import axios from "axios";
 import { Component } from "react";
 import { Button, Card, Container } from "react-bootstrap";
 import { FaCheckCircle } from "react-icons/fa";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import Task from "../components/Task";
@@ -12,72 +11,52 @@ class TaskPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			isLoading: true,
 			userTask: null,
 			task: null,
-			isLoading: true,
 		};
 	}
 
 	componentDidMount = () => {
-		axios
-			.get("/api/users/tasks/" + this.props.match.params.id, {
-				headers: {
-					"Authorization": this.props.authorization,
-				}
-			})
-			.then((result) => {
-				this.setState({
-					userTask: result.data,
-				});
-			}, (error) => {
-				// TODO: Handle error
-			});
+		this.fetchTask();
 	}
 
-	componentDidUpdate = () => {
-		if (this.state.userTask !== null && this.state.task === null) {
-			axios
-				.get("/api/tasks/" + this.state.userTask.taskId, {
-					headers: {
-						"Authorization": this.props.authorization,
-					}
-				})
-				.then((result) => {
-					this.setState({
-						task: result.data,
-						isLoading: false,
-					})
-				}, (error) => {
-					// TODO: Handle error
-				});
-		}
+	fetchUserTask = async () => {
+		const token = localStorage.getItem("token");
+		const { data } = await axios.get("/api/users/tasks/" + this.props.match.params.id, { headers: { "Authorization": "Bearer " + token, } });
+		return data;
 	}
 
-	submitPutUserTask = (isComplete, isSkipped) => {
+	fetchTask = async () => {
+		const userTask = await this.fetchUserTask();
+		const token = localStorage.getItem("token");
+		const { data } = await axios.get("/api/tasks/" + userTask.taskId, { headers: { "Authorization": "Bearer " + token, } });
+
+		this.setState({
+			isLoading: false,
+			userTask: userTask,
+			task: data,
+		});
+	}
+
+	submitPutUserTask = async (isComplete, isSkipped) => {
 		this.setState({
 			isLoading: true,
 		});
 
-		const userTask = {
+		const updatedUserTask = {
 			id: this.state.userTask.id,
 			complete: isComplete,
 			skipped: isSkipped,
 		}
 
-		axios
-			.put("/api/users/" + this.props.user.id + "/tasks", userTask, {
-				headers: {
-					"Authorization": this.props.authorization,
-				}
-			})
-			.then((result) => {
-				this.setState({
-					userTask: result.data,
-					isLoading: false,
-				});
-			}, (error) => {
-				// TODO: Handle error
-			});
+		const token = localStorage.getItem("token");
+		const { data } = await axios.put("/api/users/" + this.state.userTask.userId + "/tasks", updatedUserTask, { headers: { "Authorization": "Bearer " + token } });
+
+		this.setState({
+			isLoading: false,
+			userTask: data,
+		});
 	}
 
 	handleSkip = () => {
@@ -89,7 +68,7 @@ class TaskPage extends Component {
 	}
 
 	render() {
-		const { userTask, task, isLoading } = this.state;
+		const { isLoading, userTask, task } = this.state;
 
 		if (isLoading) {
 			return <Loader />
@@ -136,11 +115,4 @@ class TaskPage extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		authorization: "Bearer " + state.auth.jwt,
-		user: state.auth.user,
-	}
-}
-
-export default connect(mapStateToProps)(TaskPage);
+export default TaskPage;
