@@ -1,6 +1,6 @@
 {
 	"name": "robot-portal",
-	"homepage": "https: //casey-oneill.github.io/robot-portal/",
+	"homepage": "https://casey-oneill.github.io/robot-portal/",
 	"version": "1.0.0-beta",
 	"private": true,
 	"dependencies": {
