@@ -41,6 +41,7 @@ public class SecurityConfiguration {
 				.antMatchers("/").permitAll()
 				.antMatchers("/static/**").permitAll()
 				.antMatchers("/accounts/**").permitAll()
+				.antMatchers("/portal/**").permitAll()
 				.antMatchers("/api/auth/**").permitAll()
 				.antMatchers("/favicon.ico", "/manifest.json", "/logo192.png", "/logo512.png", "/robots.txt")
 				.permitAll()
