@@ -4,7 +4,8 @@ module.exports = function (app) {
     app.use(
         "/api",
         createProxyMiddleware({
-            target: "http://localhost:8080",
+            // Change to http://localhost:8080 for local development
+            target: "https://robot-portal.herokuapp.com",
             changeOrigin: true,
         })
     );
