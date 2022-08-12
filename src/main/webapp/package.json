@@ -1,6 +1,7 @@
 {
-	"name": "webapp",
-	"version": "1.0.0",
+	"name": "robot-portal",
+	"homepage": "https: //casey-oneill.github.io/robot-portal/",
+	"version": "1.0.0-beta",
 	"private": true,
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.8.2",
@@ -21,6 +22,8 @@
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build",
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
@@ -46,6 +49,7 @@
 	},
 	"devDependencies": {
 		"@faker-js/faker": "^7.3.0",
+		"gh-pages": "^4.0.0",
 		"http-proxy-middleware": "^2.0.6"
 	},
 	"resolutions": {
