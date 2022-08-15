@@ -24,7 +24,7 @@ const TaskPageWrapper = (props) => {
 
 root.render(
 	<React.StrictMode>
-		<BrowserRouter basename={process.env.PUBLIC_URL}>
+		<BrowserRouter>
 			<Routes>
 				<Route index element={<Home />} />
 				<Route path="portal" element={<Layout />}>
