@@ -1,6 +1,6 @@
 {
-	"name": "webapp",
-	"version": "1.0.0",
+	"name": "robot-portal",
+	"version": "1.0.0-beta",
 	"private": true,
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.8.2",

@@ -6,12 +6,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import reportWebVitals from './reportWebVitals';
 import Layout from './pages/Layout';
 import Dashboard from './pages/Dashboard';
-import Login from './components/Login';
+import LoginPage from './pages/LoginPage';
 import Home from './pages/Home';
-import Accounts from './pages/Accounts';
 import TaskPage from './pages/TaskPage';
 import TaskLoader from './components/TaskLoader';
 import MaintenanceForm from './components/forms/MaintenanceForm';
+import NotFound from './pages/errors/NotFound';
+import RegisterPage from './pages/RegisterPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -37,10 +38,9 @@ root.render(
 						<Route path="maintenance" element={<MaintenanceForm />} />
 					</Route>
 				</Route>
-				<Route path="accounts" element={<Accounts />}>
-					<Route path="login" element={<Login />} />
-					{/* <Route path="register" element={<Register />} /> */}
-				</Route>
+				<Route path="login" element={<LoginPage />} />
+				{/* <Route path="register" element={<RegisterPage />} /> */}
+				<Route path="*" element={<NotFound />} />
 			</Routes>
 		</BrowserRouter>
 	</React.StrictMode>
