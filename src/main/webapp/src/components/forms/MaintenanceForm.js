@@ -36,7 +36,7 @@ class MaintenanceForm extends Component {
 		}
 
 		const prefills = {};
-		prefills[MAINFORM_UID] = user.id;
+		prefills[MAINFORM_UID] = user.pid;
 
 		return (
 			<div className="maintenance-form">
