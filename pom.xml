@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.coneill.hri</groupId>
 	<artifactId>robot-portal</artifactId>
-	<version>1.0.0-beta</version>
+	<version>1.0.0</version>
 	<name>robot-portal</name>
 	<description>Custom webapp for research project.</description>
 	<properties>
