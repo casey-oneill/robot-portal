@@ -3,7 +3,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import { Line } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import axios from "axios";
-import Loader from "./Loader";
+import Loader from "../Loader";
 
 ChartJS.register(
 	CategoryScale,
@@ -73,6 +73,10 @@ class LineChart extends Component {
 				},
 				isLoaded: true,
 			});
+
+			setTimeout(() => {
+				this.randomData();
+			}, faker.datatype.number({ min: 1000, max: 3000 }));
 		}
 	}
 

@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Button, Card, Col, Container, Row, Stack } from "react-bootstrap";
-import LineChart from "../components/LineChart";
-import RadarChart from "../components/RadarChart";
+import LineChart from "../components/charts/LineChart";
+import RadarChart from "../components/charts/RadarChart";
 import { VscSync } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 

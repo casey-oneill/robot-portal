@@ -3,7 +3,7 @@ import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler,
 import { Radar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import axios from "axios";
-import Loader from "./Loader";
+import Loader from "../Loader";
 
 ChartJS.register(
 	RadialLinearScale,
@@ -70,6 +70,10 @@ class RadarChart extends Component {
 				},
 				isLoaded: true,
 			});
+
+			setTimeout(() => {
+				this.randomData();
+			}, faker.datatype.number({ min: 1000, max: 3000 }));
 		}
 	}
 
